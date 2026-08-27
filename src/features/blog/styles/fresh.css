@@ -1,0 +1,16 @@
+/* Fresh off the road — plain rounded card. Only the media panel inside it
+   (.fresh-trapezoid-media) is clipped into a trapezoid, narrowing toward the
+   bottom, like a bucket sitting wide-side up. Text and the CTA sit below it
+   as normal rectangular content. */
+.fresh-trapezoid {
+  border-radius: 28px;
+  padding: 14px 14px 18px;
+}
+@media (min-width: 768px) {
+  .fresh-trapezoid {
+    padding: 16px 16px 20px;
+  }
+}
+.fresh-trapezoid-media {
+  clip-path: url(#fresh-trapezoid-clip);
+}

@@ -1,0 +1,466 @@
+.lenis {
+  scroll-behavior: auto !important;
+}
+
+html,
+body,
+#root {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+html,
+body {
+  overscroll-behavior-x: none;
+}
+
+.carousel-scroll-lock {
+  overscroll-behavior-x: contain;
+  overscroll-behavior-inline: contain;
+  touch-action: pan-x pan-y;
+}
+
+.hero-stage { height: 200svh; }
+.hero-stage .hero-pin {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+}
+.curtain-body {
+  position: relative;
+  z-index: 3;
+  margin-top: -100svh;
+  background: var(--color-brand-blue-25);
+}
+/* Single 60px gap between each section on desktop — sections carry no
+   vertical padding of their own, so this is the only spacing between them.
+   flow-root gives each section its own block-formatting context so a
+   descendant's own negative margin (e.g. the slider rail's -12px) can't
+   collapse through the section boundary and eat into that gap. */
+.curtain-body > * {
+  display: flow-root;
+}
+.curtain-body > * + * {
+  margin-top: 32px;
+}
+@media (min-width: 768px) {
+  .curtain-body > * + * {
+    margin-top: 60px;
+  }
+}
+
+/* Featured banner slides keep 16:9 via aspect-ratio but never exceed a
+   comfortable share of the viewport on tall/wide screens. */
+.featured-banner-slide { max-height: 68svh; }
+
+/* The slider's scroll container clips the card's hover shadow (and the
+   -translate-y lift) at its edges. Pad the scroll box so the shadow has
+   room, and pull the same amount back with negative margins so layout
+   spacing doesn't change. */
+/* !important: the slider writes inline padding/margin (its edgeGap prop),
+   which would otherwise beat any stylesheet rule. Only the vertical
+   longhands are overridden so edgeGap keeps controlling the sides. */
+.featured-story-section [class*='snap-x'] {
+  padding-top: 16px !important;
+  padding-bottom: 28px !important;
+  margin-top: -16px !important;
+  margin-bottom: -28px !important;
+}
+/* Same for the sides on desktop (mobile keeps the slider's own edgeGap):
+   the box widens by 16px each side so the hover shadow isn't cut, while the
+   cards themselves stay aligned to the container gutter. */
+@media (min-width: 768px) {
+  .featured-story-section [class*='snap-x'] {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    margin-left: -16px !important;
+    margin-right: -16px !important;
+    scroll-padding-inline: 16px;
+  }
+}
+
+/* Featured carousel: one full-width card per view, so the BlogCard's stock
+   image height (h-50/h-56) reads as a thin strip. Scale the media block up
+   with the card width; clamp so text below stays in the viewport. */
+.featured-story-section [role='article'] > div:first-child {
+  height: clamp(220px, 46svh, 300px);
+}
+@media (min-width: 768px) {
+  .featured-story-section [role='article'] > div:first-child {
+    height: clamp(320px, 56svh, 520px);
+  }
+}
+
+.fresh-parallax-section {
+  --fresh-scroll-distance: 0px;
+  position: relative;
+}
+.fresh-parallax-sticky { box-sizing: border-box; }
+.fresh-parallax-section.-cinematic { height: calc(100svh + var(--fresh-scroll-distance)); }
+.fresh-parallax-section.-cinematic .fresh-parallax-sticky {
+  position: sticky;
+  top: 0;
+  display: flex;
+  min-height: 100svh;
+  align-items: center;
+  overflow: hidden;
+}
+.fresh-parallax-header { will-change: transform, opacity; }
+.blog-card-rail {
+  position: relative;
+  perspective: 1600px;
+  scrollbar-width: none;
+  cursor: grab;
+  overscroll-behavior-inline: contain;
+  touch-action: pan-x pan-y;
+}
+.blog-card-rail::-webkit-scrollbar { display: none; }
+.blog-card-rail:active,
+.blog-card-rail.-dragging { cursor: grabbing; user-select: none; }
+.fresh-parallax-section.-cinematic .blog-card-rail { overflow-x: hidden; touch-action: pan-y; }
+.fresh-parallax-track,
+.fresh-parallax-depth,
+.fresh-parallax-card img { will-change: transform; }
+.fresh-parallax-track { transform-style: preserve-3d; }
+.fresh-parallax-depth {
+  height: 100%;
+  transform-origin: 50% 50%;
+  transform-style: preserve-3d;
+}
+.fresh-parallax-card { position: relative; }
+
+.sfx {
+  opacity: 0;
+  transform: translateY(44px);
+  transition: opacity 1s cubic-bezier(0.215, 0.61, 0.355, 1), transform 1s cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition-delay: var(--sfx-delay, 0s);
+  /* Pin the card to its own compositing layer so text rasterizes once and only
+     composites while it fades/translates during Lenis smooth scroll. Without
+     this the glyphs re-rasterize each frame at sub-pixel offsets and tear
+     (ghosted/doubled author line). */
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+/* Once settled, release the layer hint so we don't keep a live layer per card. */
+.sfx.-in { opacity: 1; transform: translateY(0); will-change: auto; }
+.sfx-stagger > .sfx:nth-child(2) { --sfx-delay: 0.06s; }
+.sfx-stagger > .sfx:nth-child(3) { --sfx-delay: 0.12s; }
+.sfx-stagger > .sfx:nth-child(4) { --sfx-delay: 0.18s; }
+.sfx-stagger > .sfx:nth-child(5) { --sfx-delay: 0.24s; }
+.sfx-stagger > .sfx:nth-child(6) { --sfx-delay: 0.3s; }
+.sfx-stagger > .sfx:nth-child(7) { --sfx-delay: 0.36s; }
+.sfx-stagger > .sfx:nth-child(8) { --sfx-delay: 0.42s; }
+.sfx-stagger > .sfx:nth-child(9) { --sfx-delay: 0.48s; }
+
+/* Deterministic mount-in animation for "Load more" batches — plays on
+   creation regardless of scroll position, so cards always arrive in DOM
+   order (row by row) instead of racing an IntersectionObserver. */
+@keyframes sfx-pop {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.sfx-pop {
+  opacity: 0;
+  animation: sfx-pop 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--load-delay, 0s);
+}
+@media (prefers-reduced-motion: reduce) {
+  .sfx-pop { animation: none; opacity: 1; transform: none; }
+}
+
+.sfx-line { display: block; overflow: hidden; }
+.sfx-line > * {
+  display: block;
+  transform: translateY(115%);
+  transition: transform 1.1s cubic-bezier(0.19, 1, 0.22, 1);
+  transition-delay: var(--sfx-delay, 0s);
+}
+.sfx-line.-in > * { transform: translateY(0); }
+.sfx-clip {
+  clip-path: inset(100% 0 0 0 round var(--lego-radius-card-md));
+  transition: clip-path 1.25s cubic-bezier(0.77, 0, 0.175, 1);
+}
+.sfx-clip .sfx-clip-in {
+  transform: scale(1.28);
+  transition: transform 1.25s cubic-bezier(0.77, 0, 0.175, 1);
+}
+.sfx-clip.-in { clip-path: inset(0% 0 0 0 round var(--lego-radius-card-md)); }
+.sfx-clip.-in .sfx-clip-in { transform: scale(1); }
+
+.blog-nav {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  background-color: var(--color-white-alpha-0);
+  transition: transform 0.4s cubic-bezier(0.215, 0.61, 0.355, 1), background-color 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.blog-nav.-hidden { transform: translateY(-110%); }
+.blog-nav.-onlight {
+  background-color: var(--color-slate-50);
+}
+.blog-logo-mark {
+  display: block;
+  width: var(--size-1040);
+  aspect-ratio: 391 / 80;
+  background: var(--lego-color-text-inverse-rest);
+  transition: background 0.4s;
+  mask: url('/cars24logo.svg') no-repeat center / contain;
+  -webkit-mask: url('/cars24logo.svg') no-repeat center / contain;
+}
+.blog-nav.-onlight .blog-logo-mark { background: var(--lego-color-text-brand-primary-rest); }
+
+/* The regional feature is intentionally a little imperfect, like a printed
+   story card pinned to the hero. The reserved top edge is where the supplied
+   sticker artwork will overlap in the next pass. */
+.region-feature-card {
+  transform: none;
+  transform-origin: 50% 8%;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.region-feature-card:hover {
+  transform: translateY(-4px);
+}
+
+.region-hero-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  font-size: clamp(1.75rem, 3.1vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.region-hero-heading-chip {
+  display: inline-block;
+  padding: 0.14em 0.3em 0.17em;
+  border-radius: var(--radius-80);
+  color: var(--color-slate-900);
+  background: var(--color-slate-50);
+  box-shadow: 6px 7px 0 rgba(10, 10, 60, 0.24);
+  transform: rotate(-1.4deg);
+}
+.region-hero-heading-chip.-mint {
+  background: var(--color-slate-200, #e2e8f0);
+  transform: translateY(0.12em) rotate(1.15deg);
+}
+
+@media (max-width: 767px) {
+  .region-feature-card { transform: none; }
+  .region-feature-card:hover { transform: translateY(-2px); }
+  .region-hero-heading { font-size: clamp(1.65rem, 8.5vw, 2.25rem); }
+}
+
+.blog-card-transition-source,
+.blog-detail-hero {
+  view-transition-name: blog-card-expand;
+}
+
+::view-transition-group(blog-card-expand) {
+  animation-duration: 720ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+::view-transition-image-pair(blog-card-expand) {
+  isolation: auto;
+}
+
+::view-transition-old(blog-card-expand),
+::view-transition-new(blog-card-expand) {
+  height: 100%;
+  overflow: clip;
+  /* Match the card + detail hero radius (rounded-2xl = 1rem) so the corners
+     don't snap when the snapshots hand off. */
+  border-radius: 1rem;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  animation: blog-page-fade-out 260ms ease both;
+}
+
+::view-transition-new(root) {
+  animation: blog-page-fade-in 520ms 100ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes blog-page-fade-out {
+  to { opacity: 0.25; }
+}
+
+@keyframes blog-page-fade-in {
+  from { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fresh-parallax-track,
+  .fresh-parallax-depth,
+  .fresh-parallax-header,
+  .fresh-parallax-card img { transform: none !important; }
+  .fresh-parallax-header { opacity: 1 !important; }
+  .sfx,
+  .sfx-line > *,
+  .sfx-clip,
+  .sfx-clip .sfx-clip-in {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+    transition: none;
+  }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) { animation-duration: 1ms !important; }
+}
+
+/* Featured accordion: fade the card content in as the card widens, so the
+   image/text don't pop instantly when the active slide changes. */
+.feat-fade-in {
+  animation: feat-fade 0.5s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes feat-fade {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .feat-fade-in { animation: none; }
+}
+
+/* Featured accordion — premium morph. The stage has a fixed height, so the
+   only animated dimensions are the card's flex width and the media area's
+   flex-grow. The image is absolutely positioned with object-cover inside the
+   media area: growing the area reveals more image (a crop-reveal), it never
+   squishes or reflows. Text keeps one DOM order in both states. */
+.feat-card {
+  --feat-duration: 820ms;
+  --feat-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  flex: 0 0 96px;
+  padding-inline: 14px;
+  transition:
+    flex-basis var(--feat-duration) var(--feat-ease),
+    padding var(--feat-duration) var(--feat-ease),
+    box-shadow 280ms ease;
+  will-change: flex-basis;
+}
+.feat-card--active {
+  flex-basis: calc(100% - 224px);
+  padding-inline: 20px;
+}
+.feat-index-collapsed {
+  left: 14px;
+  top: 14px;
+  color: var(--lego-color-text-disabled, #c9ccd4);
+  font-size: var(--font-size-fs-480, 48px);
+  font-weight: 300;
+  letter-spacing: -0.065em;
+  line-height: 1;
+  white-space: nowrap;
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 260ms ease 180ms,
+    transform 420ms var(--feat-ease) 180ms;
+}
+.feat-card--active .feat-index-collapsed {
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition-delay: 0ms;
+}
+.feat-media {
+  flex: 0.001 1 0%;
+  opacity: 0;
+  margin-bottom: 0;
+  min-height: 0;
+  transition:
+    flex-grow var(--feat-duration) var(--feat-ease),
+    opacity 340ms ease,
+    margin-bottom var(--feat-duration) var(--feat-ease);
+  will-change: flex-grow, opacity;
+}
+.feat-media--open {
+  flex-grow: 1;
+  opacity: 1;
+  margin-bottom: var(--spacing-240, 1.5rem);
+  transition:
+    flex-grow var(--feat-duration) var(--feat-ease),
+    opacity 460ms ease 120ms,
+    margin-bottom var(--feat-duration) var(--feat-ease);
+}
+.feat-media-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--feat-focal-point, 50% 50%);
+}
+/* Inverse of .feat-media: fills the card when collapsed so the text block is
+   bottom-anchored, hands its space to the media area as the card opens. The
+   two growers share one curve, so the text never jumps. */
+.feat-spacer {
+  flex: 0.001 1 0%;
+  min-height: 0;
+  transition: flex-grow var(--feat-duration) var(--feat-ease);
+  will-change: flex-grow;
+}
+.feat-spacer--fill {
+  flex-grow: 1;
+}
+.feat-title {
+  transition:
+    font-size 680ms var(--feat-ease),
+    line-height 680ms var(--feat-ease),
+    color 360ms ease,
+    font-weight 360ms ease;
+}
+.feat-extra {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    grid-template-rows var(--feat-duration) var(--feat-ease),
+    opacity 300ms ease,
+    transform 520ms var(--feat-ease),
+    margin var(--feat-duration) var(--feat-ease);
+}
+.feat-extra-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+.feat-extra--before,
+.feat-extra--after {
+  margin: 0;
+}
+.feat-extra--open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    grid-template-rows var(--feat-duration) var(--feat-ease),
+    opacity 440ms ease 140ms,
+    transform 620ms var(--feat-ease) 80ms,
+    margin var(--feat-duration) var(--feat-ease);
+}
+.feat-extra--before.feat-extra--open {
+  margin-bottom: var(--spacing-120, 0.75rem);
+}
+.feat-collapsed-badge.feat-extra--open {
+  margin-bottom: var(--spacing-80, 0.5rem);
+}
+.feat-extra--after.feat-extra--open {
+  margin-top: var(--spacing-120, 0.75rem);
+}
+@media (prefers-reduced-motion: reduce) {
+  .feat-card,
+  .feat-index-collapsed,
+  .feat-media,
+  .feat-spacer,
+  .feat-extra,
+  .feat-title { transition: none; }
+}
+
+/* Featured cards are full-width BlogCards, where the lib's 12px (p-3) content
+   padding reads cramped. Give just the featured section's cards roomier
+   padding — grid/rail cards keep the default. */
+.featured-story-section [role="article"] > div:last-child {
+  padding: 1.5rem 1.75rem 1.75rem;
+}

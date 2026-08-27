@@ -1,0 +1,39 @@
+{
+  "name": "cars24-blog-react",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "The Cars24 Blog — Autonauts. React (Vite) port of the vanilla prototype.",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5199 --strictPort",
+    "audit:design-system": "node scripts/audit-design-system.mjs",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 5199 --strictPort"
+  },
+  "dependencies": {
+    "@cspl-cars24/badge-v2": "0.2.0",
+    "@cspl-cars24/button-v2": "0.1.9",
+    "@cspl-cars24/chip-v2": "0.1.7",
+    "@cspl-cars24/icon-button-v2": "0.1.8",
+    "@cspl-cars24/notch-tabs-v2": "0.1.7",
+    "@cspl-cars24/range-slider-v2": "0.1.7",
+    "@cspl-cars24/text-input-v2": "0.1.7",
+    "@cspl-cars24/text-v2": "0.2.0",
+    "@cspl-cars24/theme-v2": "0.4.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "cuelume": "^0.1.2",
+    "gsap": "3.12.5",
+    "lenis": "1.1.14",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwind-merge": "^3.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.16",
+    "@tailwindcss/vite": "^4.1.11",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tailwindcss": "^4.1.11",
+    "vite": "^5.4.11"
+  }
+}

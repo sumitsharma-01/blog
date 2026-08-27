@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.DS_Store
+**/.DS_Store
+Autonauts-Blog-Final.zip
+
+# The app is backed by the preserved Turbo UI source snapshot below. Other
+# local archives and reference copies are not required to build or run it.
+GitHub References/*
+!GitHub References/turbo-ui-master 2/
+!GitHub References/turbo-ui-master 2/**
+.vercel
+.env*

@@ -1,0 +1,279 @@
+.hero-grid-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.doodle {
+  position: absolute;
+  --r: 0deg;
+  pointer-events: none;
+}
+.doodle svg,
+.doodle img {
+  display: block;
+  width: 100%;
+  height: auto;
+  animation: doodle-bob 5s ease-in-out infinite;
+}
+.doodle img {
+  -webkit-user-drag: none;
+  user-select: none;
+  pointer-events: none;
+}
+.doodle.grab {
+  pointer-events: auto;
+  cursor: grab;
+  touch-action: none;
+  z-index: 30;
+  will-change: transform;
+}
+.doodle.grab:active { cursor: grabbing; }
+
+.d-spark1 { top: 16%; right: 11%; width: 46px; }
+.d-spark2 { bottom: 22%; left: 9%; width: 26px; opacity: 0.6; }
+.d-spark2 svg { animation-delay: 1.2s; }
+.d-spark4 { top: 26%; left: 31%; width: 22px; opacity: 0.9; }
+.d-spark4 svg { animation-delay: 2.8s; }
+.d-car { right: 10%; bottom: 16%; width: clamp(150px, 15vw, 205px); }
+.d-car img { animation-delay: 0.3s; }
+.d-cone { left: 25%; bottom: 4%; width: clamp(115px, 11vw, 160px); --r: -5deg; }
+.d-cone img { animation-delay: 1.6s; }
+.d-light { left: 9%; top: 28%; width: clamp(150px, 15vw, 215px); }
+.d-light img { animation-delay: 0.9s; }
+.d-astro { right: 18%; top: 9%; width: clamp(125px, 12.5vw, 175px); }
+.d-astro img { animation-delay: 0.15s; }
+
+/* Subscribe card: a flowing gradient that drifts across the card. A large
+   background-size lets the position animate for an obvious moving sheen; the
+   dark base stays as the fallback. Content sits above via z-10. */
+.nl-anim-gradient {
+  background:
+    linear-gradient(
+      115deg,
+      #0b1220 0%,
+      #14235c 22%,
+      #1e3a8a 42%,
+      #4b1bff 58%,
+      #1e3a8a 78%,
+      #0b1220 100%
+    );
+  background-size: 300% 300%;
+  animation: nl-gradient-move 9s linear infinite;
+}
+
+@keyframes nl-gradient-move {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Liquid-glass caustics: soft light blobs that drift and get warped by the
+   #nl-liquid turbulence, blended as light over the mesh. */
+.nl-caustics {
+  inset: -12%;
+  filter: url(#nl-liquid);
+  mix-blend-mode: screen;
+  opacity: 1;
+  background:
+    radial-gradient(30% 40% at 20% 28%, rgba(138, 120, 255, 0.42), transparent 60%),
+    radial-gradient(28% 36% at 74% 56%, rgba(159, 155, 255, 0.4), transparent 60%),
+    radial-gradient(24% 32% at 46% 84%, rgba(178, 180, 255, 0.34), transparent 60%),
+    radial-gradient(22% 28% at 86% 18%, rgba(198, 212, 255, 0.32), transparent 60%),
+    radial-gradient(26% 34% at 8% 78%, rgba(150, 135, 255, 0.36), transparent 60%);
+  background-size: 220% 220%;
+  animation: nl-caustics-drift 13s ease-in-out infinite;
+}
+
+@keyframes nl-caustics-drift {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nl-anim-gradient,
+  .nl-caustics {
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nl-anim-gradient {
+    animation: none;
+  }
+}
+
+/* Newsletter/subscribe card doodles — car anchored bottom-right, astronaut set
+   diagonally opposite in the top-left. Held static (no bob). */
+.nl-astro { top: 18px; left: 24px; width: clamp(92px, 10vw, 120px); }
+.nl-car { right: 24px; bottom: 18px; width: clamp(120px, 13vw, 168px); }
+.nl-spark2 { bottom: 26%; right: 15%; width: 22px; opacity: 0.7; }
+
+/* Keep the subscribe-card stickers still — override the shared doodle bob. */
+.nl-astro img,
+.nl-car img,
+.nl-spark2 svg {
+  animation: none;
+}
+
+@media (max-width: 640px) {
+  .nl-spark2 { display: none; }
+  .nl-astro { width: 76px; top: 14px; left: 14px; }
+  .nl-car { width: 104px; right: 14px; bottom: 14px; }
+}
+
+@keyframes doodle-bob {
+  0%, 100% { transform: translateY(0) rotate(var(--r)); }
+  50% { transform: translateY(-11px) rotate(var(--r)); }
+}
+.doodle.grab svg,
+.doodle.grab img { animation: doodle-sway 4.5s ease-in-out infinite; }
+@keyframes doodle-sway {
+  0%, 100% { transform: translate(0, 0) rotate(var(--r)); }
+  30% { transform: translate(2px, -9px) rotate(calc(var(--r) + 1.6deg)); }
+  70% { transform: translate(-2px, -4px) rotate(calc(var(--r) - 1.4deg)); }
+}
+
+/* Astronaut: gentle vertical float only — no tilt/wobble. */
+.d-astro img,
+.doodle.grab.d-astro img {
+  animation: astro-float 5.2s ease-in-out infinite;
+}
+@keyframes astro-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .d-astro img, .doodle.grab.d-astro img { animation: none; }
+}
+
+.sel-frame {
+  position: absolute;
+  inset: -10px;
+  border: var(--border-width-2) solid var(--color-sky-surge-600);
+  border-radius: var(--radius-60);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  pointer-events: none;
+}
+.sel-frame i {
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  border-radius: var(--radius-full);
+  background: var(--lego-color-surface-light-rest);
+  border: var(--border-width-2) solid var(--color-sky-surge-600);
+  box-shadow: var(--shadow-md);
+}
+.sel-frame i:nth-child(1) { top: -8px; left: -8px; }
+.sel-frame i:nth-child(2) { top: -8px; right: -8px; }
+.sel-frame i:nth-child(3) { bottom: -8px; left: -8px; }
+.sel-frame i:nth-child(4) { bottom: -8px; right: -8px; }
+.doodle.-sel .sel-frame { opacity: 1; transform: scale(1); }
+.doodle.-sel svg,
+.doodle.-sel img { animation-play-state: paused; }
+
+.hero-line { display: block; overflow: hidden; }
+.hero-line-in {
+  display: block;
+  transform: translateY(115%);
+  animation: hero-line-up 1.3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+.hero-line:nth-child(2) .hero-line-in { animation-delay: 0.14s; }
+@keyframes hero-line-up { to { transform: translateY(0); } }
+
+/* Original hero lockup: solid sticker blocks with a hard offset shadow.
+   Both lines tilt -1.2°; the second line steps right by 0.35em. Fill and
+   text colors reference theme tokens only. */
+.hero-block {
+  display: inline-block;
+  background: var(--lego-color-surface-light-rest);
+  color: var(--lego-color-text-brand-primary-rest);
+  font-weight: 800;
+  white-space: nowrap;
+  font-size: clamp(2.7rem, 7.4vw, 5.8rem);
+  letter-spacing: -0.01em;
+  line-height: 1;
+  padding: 0.14em 0.5em 0.16em 0.2em;
+  transform: rotate(-1.2deg);
+  box-shadow: 10px 12px 0 rgba(10, 10, 60, 0.22);
+}
+.hero-line:nth-child(2) .hero-block { transform: rotate(-1.2deg) translateX(0.35em); }
+.hero-block.-mint { background: var(--color-mint-green-400, #6EF7AD); }
+
+/* Scroll cue: uppercase label + a down arrow that travels a vertical track. */
+.hero-scroll-cue {
+  position: absolute;
+  right: clamp(20px, 4vw, 64px);
+  bottom: clamp(24px, 5vh, 56px);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  opacity: 0;
+  animation: hero-fade-up 1s cubic-bezier(0.215, 0.61, 0.355, 1) 0.9s forwards;
+  pointer-events: none;
+}
+.hero-scroll-label {
+  font-size: var(--font-size-130, 0.8125rem);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.25;
+  text-align: right;
+  color: var(--lego-color-alpha-white-60, rgba(255, 255, 255, 0.6));
+}
+.hero-scroll-track {
+  position: relative;
+  width: 2px;
+  height: 84px;
+  border-radius: 2px;
+  background: var(--lego-color-alpha-white-20, rgba(255, 255, 255, 0.2));
+  overflow: hidden;
+}
+.hero-scroll-arrow {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 2px;
+  height: 40px;
+  transform: translateX(-50%);
+  background: linear-gradient(to bottom, transparent, var(--color-mint-green-500));
+  animation: hero-scroll-run 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+@keyframes hero-scroll-run {
+  0% { transform: translate(-50%, -100%); }
+  100% { transform: translate(-50%, 210%); }
+}
+@media (max-width: 767px) {
+  .hero-scroll-cue { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-scroll-arrow { animation: none; top: 40%; }
+}
+
+.hero-fade {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: hero-fade-up 1s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+.hero-fade:nth-of-type(1) { animation-delay: 0.55s; }
+.hero-fade:nth-of-type(2) { animation-delay: 0.68s; }
+@keyframes hero-fade-up { to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 767px) {
+  .d-car { right: 2%; bottom: 10%; width: 120px; }
+  .d-cone { left: 10%; bottom: 4%; width: 92px; }
+  .d-light { left: -3%; top: 26%; width: 116px; }
+  .d-astro { right: 5%; top: 12%; width: 106px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .doodle svg,
+  .doodle img,
+  .doodle.grab svg,
+  .doodle.grab img { animation: none; }
+  .hero-line-in { transform: none; animation: none; }
+  .hero-fade { opacity: 1; transform: none; animation: none; }
+}
