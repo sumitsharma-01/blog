@@ -138,9 +138,9 @@ function ArticleOverview({ sections, activeId, visible = true }) {
       <Text
         text="Overview"
         as="h2"
-        className="text-fs-130 font-semibold text-slate-400"
+        className="text-label-2-semibold text-tertiary"
       />
-      <ol className="bd-steps mt-200">
+      <ol className="bd-steps mt-20">
         {sections.map((section, index) => {
           const status = index < activeIndex ? 'done' : index === activeIndex ? 'current' : 'upcoming'
           const isLast = index === sections.length - 1
@@ -269,7 +269,7 @@ function ArticleActions({ post }) {
             onClick={() => toggle('up')}
             ariaLabel={vote === 'up' ? 'Remove like' : 'Like this article'}
           />
-          <span className="min-w-[3ch] text-[15px] font-semibold leading-5 tabular-nums">{formatCount(likeCount)}</span>
+          <span className="min-w-[3ch] text-heading-h4-semibold tabular-nums">{formatCount(likeCount)}</span>
         </div>
 
         <div className={`bd-reaction-control flex items-center gap-8 ${vote === 'down' ? 'is-selected' : ''}`}>
@@ -281,7 +281,7 @@ function ArticleActions({ post }) {
             onClick={() => toggle('down')}
             ariaLabel={vote === 'down' ? 'Remove dislike' : 'Dislike this article'}
           />
-          <span className="min-w-[3ch] text-[15px] font-semibold leading-5 tabular-nums">{formatCount(dislikeCount)}</span>
+          <span className="min-w-[3ch] text-heading-h4-semibold tabular-nums">{formatCount(dislikeCount)}</span>
         </div>
       </div>
 
@@ -299,7 +299,7 @@ function ArticleActions({ post }) {
           />
           {shareOpen && (
             <div
-              className="absolute bottom-[calc(100%+0.5rem)] right-0 z-30 flex items-center gap-120 rounded-full border border-lego-color-border-secondary-rest bg-white p-80 shadow-lg"
+              className="absolute bottom-[calc(100%+0.5rem)] right-0 z-30 flex items-center gap-120 rounded-full border border-secondary bg-white p-80 shadow-lg"
               role="menu"
               aria-label="Share options"
             >
@@ -420,12 +420,12 @@ export default function BlogDetailPage({ post, relatedPosts = posts }) {
   }, [post.id, articleSections])
 
   return (
-    <div className="min-h-screen bg-slate-50 text-lego-color-text-primary-rest">
+    <div className="min-h-screen bg-slate-50 text-primary">
       <Nav solid />
       <main>
         <div className="relative mx-auto w-full max-w-[1240px]">
-          <aside className="pointer-events-none absolute inset-y-0 left-0 hidden w-[210px] xl:block">
-            <div className="pointer-events-auto sticky top-1/2 -translate-y-1/2 pl-240">
+          <aside className="pointer-events-none absolute inset-y-0 left-0 hidden w-200 xl:block">
+            <div className="pointer-events-auto sticky top-1/2 -translate-y-1/2 pl-24">
               <ArticleOverview
                 sections={articleSections}
                 activeId={activeId}
@@ -455,29 +455,30 @@ export default function BlogDetailPage({ post, relatedPosts = posts }) {
             <Text
               text={post.title}
               as="h1"
-              className="bd-rise text-[40px] font-bold leading-[1.36] text-primary"
+              className="bd-rise text-display-1-bold text-primary"
               style={{ '--bd-delay': '0.08s' }}
             />
             <Text
               text={post.summary}
               as="p"
-              className="bd-rise text-xl leading-[1.36] text-secondary"
+              typography="body-1"
+              className="bd-rise bd-lede text-secondary"
               style={{ '--bd-delay': '0.18s' }}
             />
           </div>
           <div className="bd-rise mt-24 flex flex-wrap items-center gap-x-12 gap-y-4 text-body-1" style={{ '--bd-delay': '0.28s' }}>
-            <Text text={post.authors[0].name} as="span" typography="body-1" className="font-semibold text-primary" />
+            <Text text={post.authors[0].name} as="span" typography="body-1" className="text-label-1-semibold text-primary" />
             <span className="text-tertiary" aria-hidden>•</span>
-            <Text text={formatDate(post.publishedAt)} as="span" typography="body-1" className="text-secondary" />
+            <Text text={formatDate(post.publishedAt)} as="span" typography="label-2-regular" className="text-label-2-regular text-secondary" />
             <span className="text-tertiary" aria-hidden>•</span>
-            <Text text={post.category} as="span" typography="body-1" className="text-secondary" />
+            <Text text={post.category} as="span" typography="label-2-regular" className="text-label-2-regular text-secondary" />
             <span className="text-tertiary" aria-hidden>•</span>
-            <Text text={post.readTime} as="span" typography="body-1" className="text-secondary" />
+            <Text text={post.readTime} as="span" typography="label-2-regular" className="text-label-2-regular text-secondary" />
           </div>
         </header>
 
         <div id="article-cover" className="mx-auto w-full max-w-[820px] px-24">
-          <div className="aspect-video overflow-hidden rounded-2xl bg-lego-color-surface-subtle-rest">
+          <div className="aspect-video overflow-hidden rounded-2xl bg-secondary">
             <img
               src={post.thumbnail.url}
               alt={post.thumbnail.alternativeText}
@@ -495,10 +496,11 @@ export default function BlogDetailPage({ post, relatedPosts = posts }) {
                 className="bd-rise scroll-mt-1000 md:scroll-mt-1200"
                 style={{ '--bd-delay': `${0.38 + index * 0.12}s` }}
               >
-                <Text text={section.heading} as="h2" className="text-xl font-semibold leading-[1.36] text-primary" />
+                <Text text={section.heading} as="h2" typography="heading-h2-semibold"
+                  className="text-heading-h2-semibold text-primary" />
                 <div className="mt-12 space-y-20">
                   {section.paragraphs.map((paragraph) => (
-                    <Text key={paragraph} text={paragraph} as="p" typography="body-1" className="leading-[1.36] text-secondary" />
+                    <Text key={paragraph} text={paragraph} as="p" typography="body-1" className="text-secondary" />
                   ))}
                 </div>
                 {section.image && <ArticleImage image={section.image} />}
@@ -508,7 +510,8 @@ export default function BlogDetailPage({ post, relatedPosts = posts }) {
                     <Text
                       text={section.quote}
                       as="p"
-                      className="text-xl font-semibold leading-[1.36] text-primary"
+                      typography="heading-h2-semibold"
+                  className="text-heading-h2-semibold text-primary"
                     />
                   </blockquote>
                 )}
@@ -522,7 +525,8 @@ export default function BlogDetailPage({ post, relatedPosts = posts }) {
 
         <section className="mx-auto max-w-7xl px-24 pt-24 pb-48 md:pt-48 md:pb-48">
           <div className="rounded-alt-xl bg-slate-100 p-24">
-          <Text text="Continue the Journey" as="h2" className="text-xl font-semibold text-primary" />
+          <Text text="Continue the Journey" as="h2" typography="heading-h2-semibold"
+                  className="text-heading-h2-semibold text-primary" />
           <Text text="Every story leads to another. Here's where to head next." as="p" typography="body-1" className="mt-8 text-secondary" />
           {isMobile ? (
             <div className="mt-32 pt-8" role="region" aria-label="More Cars24 blog stories">

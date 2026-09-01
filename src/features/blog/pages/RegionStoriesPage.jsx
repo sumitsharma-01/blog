@@ -30,11 +30,11 @@ function RegionHero({ region, post, heroRef, canvasRef }) {
     <section
       ref={heroRef}
       id="region-featured-hero"
-      className="relative overflow-hidden bg-brand-blue-25 text-lego-color-text-primary-rest"
+      className="relative overflow-hidden bg-brand-subtler text-primary"
     >
-      <canvas ref={canvasRef} className="hero-grid-canvas" aria-hidden />
-      <div className="relative pt-[calc(56px+2rem)] pb-32 md:pb-48 md:pt-[calc(72px+3rem)]">
-        <div className="sfx mb-32 flex px-24 md:pl-[max(0.75rem,calc((100vw-1260px)/2))] md:pr-24">
+      <canvas ref={canvasRef} className="hero-grid-canvas z-0" aria-hidden />
+      <div className="relative z-10 pt-[calc(56px+2rem)] pb-32 md:pb-48 md:pt-[calc(72px+3rem)]">
+        <div className="mb-32 flex px-24 md:pl-[max(0.75rem,calc((100vw-1260px)/2))] md:pr-24">
           <Badge text="Featured blog" variant="information" appearance="subtle" size="md" borderRadius="full" />
         </div>
 
@@ -49,34 +49,32 @@ function RegionHero({ region, post, heroRef, canvasRef }) {
               <Text
                 text={post.title}
                 as="h1"
-                className="text-3xl font-semibold leading-[1.3] text-lego-color-text-primary-rest md:text-4xl"
+                typography="display-1-semibold"
+                className="text-display-1-semibold text-primary"
               />
               <Text
                 text={post.summary}
                 as="p"
-                className="mt-20 text-base font-normal leading-[1.5] text-lego-color-text-secondary-rest md:mt-24 md:text-lg"
+                className="mt-20 text-body-1 text-secondary md:mt-24 "
               />
-              <div className="mt-24 flex flex-wrap items-center gap-x-8 gap-y-4 text-lego-color-text-tertiary-rest md:mt-32 md:gap-8">
-                <Text text={post.authors[0].name} as="span" className="text-fs-130 font-semibold text-lego-color-text-primary-rest md:text-fs-150" />
+              <div className="mt-24 flex flex-wrap items-center gap-x-8 gap-y-4 text-tertiary md:mt-32 md:gap-8">
+                <Text text={post.authors[0].name} as="span" typography="label-1-semibold" className="text-label-1-semibold text-primary" />
                 <span aria-hidden>•</span>
-                <Text text={formatDate(post.publishedAt)} as="span" className="text-fs-130 md:text-fs-150" />
+                <Text text={formatDate(post.publishedAt)} as="span" typography="label-1-regular" className="text-label-1-regular text-secondary" />
                 <span aria-hidden>•</span>
-                <Text text={post.readTime} as="span" className="text-fs-130 md:text-fs-150" />
+                <Text text={post.readTime} as="span" typography="label-1-regular" className="text-label-1-regular text-secondary" />
               </div>
 
-              <span className="mt-32 inline-flex w-fit items-center gap-4 rounded-full bg-slate-900 px-20 py-10 text-fs-140 font-semibold text-white md:mt-auto md:text-fs-150">
+              <span className="mt-32 inline-flex w-fit items-center gap-4 rounded-full bg-primary-inverse px-20 py-10 text-label-2-medium text-primary-inverse md:mt-auto md:text-label-1-semibold">
                 Read more
-                <svg viewBox="0 0 16 16" className="h-[1em] w-[1em]" fill="none" aria-hidden>
+                <svg viewBox="0 0 16 16" className="h-16 w-16" fill="none" aria-hidden>
                   <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </span>
             </div>
             <div className="w-full md:pr-[max(0.75rem,calc((100vw-1260px)/2))]">
               <div
-                className="relative isolate aspect-video w-full overflow-hidden rounded-[20px] bg-white md:ml-auto md:max-w-[820px] md:rounded-[28px]"
-                style={{
-                  boxShadow: '0 24px 64px rgba(47, 69, 105, 0.18), 0 6px 18px rgba(47, 69, 105, 0.10)',
-                }}
+                className="relative isolate aspect-video w-full overflow-hidden rounded-alt-xl bg-primary md:ml-auto md:max-w-[820px]"
               >
                 <img
                   src={post.thumbnail.url}
@@ -85,7 +83,7 @@ function RegionHero({ region, post, heroRef, canvasRef }) {
                 />
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-slate-900/5"
+                  className="pointer-events-none absolute inset-0 rounded-alt-xl ring-1 ring-inset ring-primary/5"
                 />
               </div>
             </div>
@@ -134,19 +132,19 @@ export default function RegionStoriesPage({
   const secondRow = allRows.slice(ROW_TWO_SIZE)
 
   return (
-    <div className="min-h-screen bg-slate-50 text-lego-color-text-primary-rest">
+    <div className="min-h-screen bg-slate-50 text-primary">
       <Nav overLight />
       <main>
         {featuredPost && (
           <RegionHero region={region} post={featuredPost} heroRef={heroRef} canvasRef={canvasRef} />
         )}
 
-        <section className="mx-auto max-w-7xl px-24 py-40 md:py-66">
+        <section className="mx-auto max-w-7xl px-24 py-40 md:py-64">
           <h2 className="sfx-line">
             <Text
               text={`Stories from ${region}`}
               as="span"
-              className="text-fs-240 font-bold text-lego-color-text-primary-rest md:text-fs-280"
+              className="text-display-1-bold text-primary md:text-display-1-bold"
             />
           </h2>
 

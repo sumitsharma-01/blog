@@ -40,20 +40,20 @@ export default function FreshCard({ post }) {
 
       {/* Content */}
       <div className="flex flex-1 flex-col pt-4">
-        <h3 className="line-clamp-2 text-fs-170 font-bold leading-[1.2] text-slate-900 md:text-fs-200">
+        <h3 className="line-clamp-2 text-heading-h3-bold text-primary">
           {post.title}
         </h3>
-        <p className="mt-2 line-clamp-3 text-fs-130 leading-[1.5] text-slate-600 md:text-fs-150">
+        <p className="mt-8 line-clamp-3 text-body-2 text-secondary">
           {post.summary}
         </p>
 
         <div className="mt-auto flex items-center justify-between gap-2 pt-4">
-          <span className="text-fs-110 text-slate-500 md:text-fs-130">
+          <span className="text-label-4-regular text-tertiary">
             {post.authors?.[0]?.name}
             {post.authors?.[0]?.name && <> <span aria-hidden>·</span> </>}
             {formatDate(post.publishedAt)}
           </span>
-          <span className="inline-flex items-center gap-1 rounded-full border border-brand-blue-300 px-3 py-1 text-fs-110 font-semibold text-brand-blue-300 transition-colors group-hover:bg-brand-blue-300 group-hover:text-white md:text-fs-130">
+          <span className="inline-flex items-center gap-4 rounded-full border border-brand-base-alt px-12 py-4 text-label-3-semibold text-brand-base-alt transition-colors group-hover:bg-brand-base-alt group-hover:text-white md:text-label-2-regular">
             Read more
             <span aria-hidden>→</span>
           </span>

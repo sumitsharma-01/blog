@@ -15,7 +15,7 @@ export default function BlogPage() {
   useScrollFx()
   useHorizontalCarouselContainment()
   return (
-    <div className="min-h-screen bg-brand-blue-25 text-lego-color-text-primary-rest">
+    <div className="min-h-screen bg-secondary text-primary">
       <Nav />
       <main>
         <Hero />

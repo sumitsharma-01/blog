@@ -40,7 +40,7 @@ function runFallbackZoom(url, source) {
     borderRadius: sourceRadius,
     objectFit: 'cover',
     pointerEvents: 'none',
-    boxShadow: '0 24px 64px rgba(15, 23, 42, 0.24)',
+    boxShadow: '0 24px 64px var(--color-alpha-black-300)',
   })
 
   document.body.style.overflow = 'hidden'

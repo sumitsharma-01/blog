@@ -1,4 +1,5 @@
-import Text from '../turbo/Text'
+import { getIconClass } from "@cspl-cars24/theme-v2"
+import Text from "../turbo/Text"
 import '../../styles/footer.css'
 
 const FooterImage = ({ fill: _fill, className = '', src, ...props }) => (
@@ -30,7 +31,6 @@ const footerDataIndia = {
       },
       title: 'Better drives, better lives',
       description: 'Made with ❤️ in Gurugram',
-      textColor: '#ffffff',
       redirection: redirection('https://www.cars24.com'),
     },
     address: {
@@ -155,20 +155,149 @@ const footerDataIndia = {
 }
 
 export default function Footer() {
-  const columns = footerDataIndia.footerData.items.flat()
+  const { header, footerData, geo } = footerDataIndia
+  const columns = footerData.items.flat()
+
   return (
-    <footer className="bg-slate-950 px-16 py-32 text-primary-inverse">
-      <div className="mx-auto grid max-w-7xl gap-24 md:grid-cols-[2fr_1fr_1fr_1fr]">
-        <div className="flex flex-col gap-8">
-          <img src={footerDataIndia.header.logo.media.url} alt={footerDataIndia.header.logo.media.alt} className="h-40 w-auto self-start brightness-0 invert" />
-          <Text text={footerDataIndia.header.logo.title} as="p" typography="heading-h3-bold" />
-          <Text text={footerDataIndia.header.logo.description} as="p" typography="body-3" />
-          <Text text={footerDataIndia.geo.copyrightNotice} as="p" typography="caption-1" className="text-secondary" />
+    <footer className="bg-slate-900 text-primary-inverse">
+      <div className="mx-auto max-w-7xl px-24 py-48 md:px-32 md:py-64">
+        <div className="grid gap-48 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)] md:gap-64">
+          <section aria-label="Cars24" className="min-w-0">
+            <a href={header.logo.redirection.data.url} aria-label="Cars24 home" className="inline-flex">
+              <FooterImage
+                src={header.logo.media.url}
+                alt={header.logo.media.alt}
+                className="h-24 w-auto brightness-0 invert"
+              />
+            </a>
+
+            <Text
+              text={header.logo.title}
+              as="p"
+              typography="heading-h1-bold"
+              className="mt-16 max-w-200 text-primary-inverse"
+            />
+            <Text
+              text={header.logo.description}
+              as="p"
+              typography="label-1-semibold"
+              className="mt-8 text-primary-inverse"
+            />
+
+            <div className="mt-40">
+              <Text
+                text={header.address.title}
+                as="h2"
+                typography="label-2-semibold"
+                className="text-secondary-on-color"
+              />
+              <Text
+                text={header.address.text}
+                as="p"
+                typography="label-2-regular"
+                className="mt-12 w-328 max-w-full text-primary-inverse"
+              />
+            </div>
+
+            <div className="mt-32 flex items-center gap-8">
+              <FooterImage
+                src={header.certification.image.url}
+                alt={header.certification.image.alternativeText}
+                className="h-24 w-24 object-contain"
+              />
+              <Text
+                text={header.certification.title}
+                as="p"
+                typography="label-2-semibold"
+                className="text-primary-inverse"
+              />
+            </div>
+
+            <nav aria-label="Cars24 social profiles" className="mt-48 flex items-center gap-24">
+              {header.socialLinks.map((social) => (
+                <a
+                  key={social.key}
+                  href={social.redirection.data.url}
+                  aria-label={social.key}
+                  className="inline-flex text-primary-inverse transition-opacity hover:opacity-70"
+                >
+                  <i className={[getIconClass(social.icon, "xl"), "text-primary-inverse"].join(" ")} aria-hidden />
+                </a>
+              ))}
+            </nav>
+
+            <div className="mt-32 flex flex-wrap items-center gap-16">
+              {header.downloadLinks.map((download) => (
+                <a key={download.media.alt} href={download.redirection.data.url} className="inline-flex">
+                  <FooterImage
+                    src={download.media.url}
+                    alt={download.media.alt}
+                    className="h-40 w-auto"
+                  />
+                </a>
+              ))}
+            </div>
+          </section>
+
+          {columns.map((column) => (
+            <nav key={column.id} aria-label={column.title} className="min-w-0">
+              <Text
+                text={column.title}
+                as="h2"
+                typography="label-2-semibold"
+                className="text-secondary-on-color"
+              />
+              <div className="mt-16 flex flex-col gap-16">
+                {column.links.map((link) => (
+                  <a
+                    key={link.id}
+                    href={link.redirection.data.url}
+                    className="w-fit text-label-2-regular text-primary-inverse transition-opacity hover:opacity-70"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            </nav>
+          ))}
         </div>
-        {columns.map((column) => <nav key={column.id} aria-label={column.title} className="flex flex-col gap-8">
-          <Text text={column.title} as="h2" typography="label-1-semibold" />
-          {column.links.map((link) => <a key={link.id} href={link.redirection.data.url} className="text-body-3 text-secondary hover:text-primary-inverse">{link.label}</a>)}
-        </nav>)}
+
+        <div className="mt-48 border-t border-secondary-inverse pt-20">
+          <div className="flex flex-col gap-16 md:flex-row md:items-center md:justify-between">
+            <Text
+              text={geo.copyrightNotice}
+              as="p"
+              typography="label-3-regular"
+              className="text-secondary-on-color"
+            />
+            <div className="flex flex-wrap items-center gap-12">
+              <Text
+                text={geo.label}
+                as="span"
+                typography="label-2-semibold"
+                className="text-primary-inverse"
+              />
+              {geo.items.map((region, index) => (
+                <div key={region.id} className="flex items-center gap-8">
+                  {index > 0 && <span aria-hidden className="text-secondary-on-color">•</span>}
+                  <a href={region.redirection.data.url} className="inline-flex items-center gap-8">
+                    <FooterImage
+                      src={region.media.url}
+                      alt={region.media.alt}
+                      className="h-16 w-16 object-contain"
+                    />
+                    <Text
+                      text={region.label}
+                      as="span"
+                      typography="label-2-regular"
+                      className="text-primary-inverse"
+                    />
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </footer>
   )

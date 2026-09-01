@@ -18,11 +18,11 @@ export default function Hero() {
     <div id="top" className="hero-stage">
       <section
         ref={heroRef}
-        className="hero-pin relative overflow-hidden bg-lego-color-surface-brand-primary-rest text-lego-color-text-inverse-rest"
+        className="hero-pin relative overflow-hidden bg-brand-base text-primary-inverse"
       >
         <canvas ref={canvasRef} className="hero-grid-canvas" aria-hidden />
         <div className="doodle d-spark1" aria-hidden><Spark fill="var(--color-mint-green-500)" /></div>
-        <div className="doodle d-spark2" aria-hidden><Spark fill="var(--lego-color-text-inverse-rest)" /></div>
+        <div className="doodle d-spark2" aria-hidden><Spark fill="var(--text-primary-inverse)" /></div>
         <div className="doodle d-spark4" aria-hidden><Spark fill="var(--color-sky-surge-600)" /></div>
         <div className="doodle d-car grab" aria-hidden><img src="/car-cut.png" alt="" /></div>
         <div className="doodle d-cone grab" aria-hidden><img src="/cone-cut.png" alt="" /></div>
@@ -39,10 +39,10 @@ export default function Hero() {
             </span></span>
           </h1>
           <p className="hero-fade">
-            <Text text="Better drives, " as="span" italics className="text-fs-240 font-bold md:text-fs-280" />
-            <Text text="better lives" as="span" italics className="text-fs-240 font-bold text-mint-green-500 md:text-fs-280" />
+            <Text text="Better drives, " as="span" italics className="text-display-1-bold md:text-display-1-bold" />
+            <Text text="better lives" as="span" italics className="text-display-1-bold text-mint-green-500 md:text-display-1-bold" />
           </p>
-          <Text text="Technology, mobility, and everything in between." as="p" className="hero-fade mt-120 text-fs-150 text-lego-color-alpha-white-80 md:text-fs-170" />
+          <Text text="Technology, mobility, and everything in between." as="p" className="hero-fade mt-120 text-heading-h4-bold text-secondary-on-color md:text-heading-h3-bold" />
         </div>
 
         <div className="hero-scroll-cue" aria-hidden="true">

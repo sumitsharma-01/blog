@@ -13,8 +13,8 @@ export default function FreshOffTheRoad({ title = 'Fresh off the road', subtitle
   return (
     <section className="bg-brand-blue-25">
       <div className="mx-auto w-full max-w-7xl px-240">
-        <h2 className="sfx-line"><Text text={title} as="span" className="text-fs-240 font-bold text-lego-color-text-primary-rest md:text-fs-280" /></h2>
-        <Text text={subtitle} as="p" className="sfx mt-120 text-fs-170 text-lego-color-text-secondary-rest" />
+        <h2 className="sfx-line"><Text text={title} as="span" className="text-display-1-bold text-primary md:text-display-1-bold" /></h2>
+        <Text text={subtitle} as="p" className="sfx mt-120 text-heading-h3-bold text-secondary" />
       </div>
 
       {/* 3.5 cards on desktop — the half-peek card invites the horizontal

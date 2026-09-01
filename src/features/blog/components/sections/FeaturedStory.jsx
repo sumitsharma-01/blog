@@ -46,7 +46,7 @@ export default function FeaturedStory({ items = regionFeatured, title = 'Feature
       <Text
         text={title}
         as="h2"
-        className="text-fs-240 font-bold text-lego-color-text-primary-rest md:text-fs-280"
+        className="text-display-1-bold text-primary md:text-display-1-bold"
       />
 
       <div

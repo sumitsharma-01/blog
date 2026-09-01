@@ -50,7 +50,7 @@ export default function Nav({ solid = false, overLight = false }) {
             <span
               className="block h-full w-full transition-colors duration-300"
               style={{
-                backgroundColor: darkContent ? '#4736FE' : '#FFFFFF',
+                backgroundColor: darkContent ? "var(--bg-brand-base-alt)" : "var(--text-primary-inverse)",
                 mask: "url('/cars24logo.svg') no-repeat left center / contain",
                 WebkitMask: "url('/cars24logo.svg') no-repeat left center / contain",
               }}
@@ -82,7 +82,7 @@ export default function Nav({ solid = false, overLight = false }) {
             <span
               className="block h-full w-full transition-colors duration-300"
               style={{
-                backgroundColor: darkContent ? '#4736FE' : '#FFFFFF',
+                backgroundColor: darkContent ? "var(--bg-brand-base-alt)" : "var(--text-primary-inverse)",
                 mask: "url('/cars24logo.svg') no-repeat center / contain",
                 WebkitMask: "url('/cars24logo.svg') no-repeat center / contain",
               }}

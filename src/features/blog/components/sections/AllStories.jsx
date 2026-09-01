@@ -25,7 +25,7 @@ export default function AllStories({ posts: allPosts = posts, filters: allFilter
 
   return (
     <section id={sectionId} className="mx-auto max-w-7xl px-240">
-      <h2 className="sfx-line"><Text text={heading} as="span" className="text-fs-240 font-bold text-lego-color-text-primary-rest md:text-fs-280" /></h2>
+      <h2 className="sfx-line"><Text text={heading} as="span" className="text-display-1-bold text-primary" /></h2>
       <div className="sfx relative z-20 mb-240 mt-320 flex flex-col gap-160 sm:flex-row sm:items-center sm:justify-between">
         <div className="min-w-0 flex-1">
           {isMobile ? (

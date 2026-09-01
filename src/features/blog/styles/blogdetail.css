@@ -1,3 +1,11 @@
+.bd-lede {
+  font-family: var(--font-family-primary);
+  font-size: var(--size-heading-h2);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-heading-h2);
+  letter-spacing: var(--letter-spacing-heading-h2);
+}
+
 /* Subtle entrance for the detail-page hero text — a gentle rise + fade that
    plays as the page lands (pairs with the image view-transition morph). */
 .bd-rise {
@@ -97,14 +105,14 @@
 /* Progress stepper: filled dots for completed sections, a ring for the current
    one, hollow dots ahead, joined by a vertical connector. */
 .bd-steps {
-  --bd-brand: var(--lego-color-text-brand-primary-rest, #4b1bff);
-  --bd-idle: var(--color-slate-300, #cbd5e1);
+  --bd-brand: var(--text-brand-base);
+  --bd-idle: var(--color-slate-300);
 }
 
 .bd-step-link {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: var(--gap-12);
 }
 
 .bd-step-rail {
@@ -112,16 +120,16 @@
   flex-direction: column;
   align-items: center;
   align-self: stretch;
-  flex: 0 0 14px;
+  flex: 0 0 var(--size-14);
 }
 
 .bd-step-dot {
   box-sizing: border-box;
-  width: 12px;
-  height: 12px;
-  margin-top: 3px;
-  border-radius: 999px;
-  border: 2px solid var(--bd-idle);
+  width: var(--size-12);
+  height: var(--size-12);
+  margin-top: var(--spacing-4);
+  border-radius: var(--radius-full);
+  border: var(--border-width-regular) solid var(--bd-idle);
   background: transparent;
   transition:
     background-color 220ms ease,
@@ -131,11 +139,11 @@
 
 .bd-step-line {
   flex: 1 1 auto;
-  width: 2px;
-  min-height: 16px;
-  margin: 3px 0;
+  width: var(--size-2);
+  min-height: var(--size-16);
+  margin: var(--spacing-4) 0;
   background: var(--bd-idle);
-  border-radius: 999px;
+  border-radius: var(--radius-full);
   transition: background-color 220ms ease;
 }
 
@@ -143,8 +151,8 @@
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: 6px 8px;
-  padding-bottom: 20px;
+  gap: var(--gap-6) var(--gap-8);
+  padding-bottom: var(--spacing-20);
 }
 
 .bd-step[data-last] .bd-step-body {
@@ -152,9 +160,12 @@
 }
 
 .bd-step-label {
-  font-size: var(--font-size-fs-130, 0.8125rem);
-  line-height: 1.4;
-  color: var(--lego-color-text-secondary-rest, #475569);
+  font-family: var(--font-family-primary);
+  font-size: var(--size-heading-h5);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-heading-h5);
+  letter-spacing: var(--letter-spacing-heading-h5);
+  color: var(--text-secondary);
   transition: color 220ms ease;
 }
 
@@ -167,7 +178,7 @@
   background: var(--bd-brand);
 }
 .bd-step[data-status='done'] .bd-step-label {
-  color: var(--lego-color-text-primary-rest, #0f172b);
+  color: var(--text-primary);
 }
 
 /* Current step: clean brand ring (hollow), bolder label. */
@@ -176,7 +187,7 @@
   background: transparent;
 }
 .bd-step[data-status='current'] .bd-step-label {
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--bd-brand);
 }
 
