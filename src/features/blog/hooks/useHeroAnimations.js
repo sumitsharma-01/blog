@@ -68,9 +68,11 @@ export default function useHeroAnimations(heroRef, canvasRef) {
           }
 
           context.clearRect(0, 0, width, height)
-          // Keep the grid inside the brand-blue family so it reads as a soft
-          // texture instead of a grey wireframe on the pale hero.
-          context.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue("--brand-100").trim()
+          // Keep the grid inside the brand-blue family but use the system opacity
+          // token so it stays a soft background texture on the pale hero.
+          const rootStyles = getComputedStyle(document.documentElement)
+          context.strokeStyle = rootStyles.getPropertyValue("--brand-100").trim()
+          context.globalAlpha = Number(rootStyles.getPropertyValue("--opacity-50").trim())
           context.lineWidth = 1
           context.beginPath()
           const offsetX = -(offset % cellSize)
@@ -84,7 +86,8 @@ export default function useHeroAnimations(heroRef, canvasRef) {
             context.lineTo(width, y + 0.5)
           }
           context.stroke()
-          context.fillStyle = getComputedStyle(document.documentElement).getPropertyValue("--brand-100").trim()
+          context.globalAlpha = 1
+          context.fillStyle = rootStyles.getPropertyValue("--brand-100").trim()
           Object.keys(lit).forEach((key) => {
             const item = lit[key]
             item.strength *= 0.955

@@ -16,7 +16,7 @@ export default function BlogPage() {
   useHorizontalCarouselContainment()
   return (
     <div className="min-h-screen bg-secondary text-primary">
-      <Nav />
+      <Nav overLight />
       <main>
         <Hero />
         <div className="curtain-body">

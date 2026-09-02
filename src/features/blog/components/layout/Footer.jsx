@@ -160,8 +160,8 @@ export default function Footer() {
 
   return (
     <footer className="bg-slate-900 text-primary-inverse">
-      <div className="mx-auto max-w-7xl px-24 py-48 md:px-32 md:py-64">
-        <div className="grid gap-48 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)] md:gap-64">
+      <div className="mx-auto max-w-7xl px-24 py-32 md:px-32 md:py-24">
+        <div className="grid gap-48 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)_minmax(0,2fr)_minmax(0,2fr)] md:gap-64">
           <section aria-label="Cars24" className="min-w-0">
             <a href={header.logo.redirection.data.url} aria-label="Cars24 home" className="inline-flex">
               <FooterImage
@@ -170,32 +170,31 @@ export default function Footer() {
                 className="h-24 w-auto brightness-0 invert"
               />
             </a>
-
             <Text
               text={header.logo.title}
               as="p"
-              typography="heading-h1-bold"
-              className="mt-16 max-w-200 text-primary-inverse"
+              typography="display-1-semibold"
+              className="mt-4 w-336 max-w-full text-primary-inverse"
             />
             <Text
               text={header.logo.description}
               as="p"
-              typography="label-1-semibold"
-              className="mt-8 text-primary-inverse"
+              typography="label-1-medium"
+              className="mt-16 text-primary-inverse"
             />
 
-            <div className="mt-40">
+            <div className="mt-48">
               <Text
                 text={header.address.title}
                 as="h2"
-                typography="label-2-semibold"
-                className="text-secondary-on-color"
+                typography="label-2-medium"
+                className="text-brand-200"
               />
               <Text
                 text={header.address.text}
                 as="p"
                 typography="label-2-regular"
-                className="mt-12 w-328 max-w-full text-primary-inverse"
+                className="mt-12 text-primary-inverse"
               />
             </div>
 
@@ -208,7 +207,7 @@ export default function Footer() {
               <Text
                 text={header.certification.title}
                 as="p"
-                typography="label-2-semibold"
+                typography="label-2-medium"
                 className="text-primary-inverse"
               />
             </div>
@@ -244,15 +243,15 @@ export default function Footer() {
               <Text
                 text={column.title}
                 as="h2"
-                typography="label-2-semibold"
-                className="text-secondary-on-color"
+                typography="label-2-medium"
+                className="text-brand-200"
               />
-              <div className="mt-16 flex flex-col gap-16">
+              <div className="mt-4 flex flex-col gap-16">
                 {column.links.map((link) => (
                   <a
                     key={link.id}
                     href={link.redirection.data.url}
-                    className="w-fit text-label-2-regular text-primary-inverse transition-opacity hover:opacity-70"
+                    className="w-fit text-label-3-medium text-primary-inverse transition-opacity hover:opacity-70"
                   >
                     {link.label}
                   </a>
@@ -262,19 +261,19 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="mt-48 border-t border-secondary-inverse pt-20">
+        <div className="mt-24 border-t border-secondary-inverse pt-20">
           <div className="flex flex-col gap-16 md:flex-row md:items-center md:justify-between">
             <Text
               text={geo.copyrightNotice}
               as="p"
               typography="label-3-regular"
-              className="text-secondary-on-color"
+              className="text-primary-inverse"
             />
             <div className="flex flex-wrap items-center gap-12">
               <Text
                 text={geo.label}
                 as="span"
-                typography="label-2-semibold"
+                typography="label-2-regular"
                 className="text-primary-inverse"
               />
               {geo.items.map((region, index) => (

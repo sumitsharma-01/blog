@@ -35,7 +35,7 @@ function RegionHero({ region, post, heroRef, canvasRef }) {
       <canvas ref={canvasRef} className="hero-grid-canvas z-0" aria-hidden />
       <div className="relative z-10 pt-[calc(56px+2rem)] pb-32 md:pb-48 md:pt-[calc(72px+3rem)]">
         <div className="mb-32 flex px-24 md:pl-[max(0.75rem,calc((100vw-1260px)/2))] md:pr-24">
-          <Badge text="Featured blog" variant="information" appearance="subtle" size="md" borderRadius="full" />
+          <Badge text="Featured blog" variant="information" appearance="subtle" size="md" borderRadius="full" pill />
         </div>
 
         <a
@@ -74,7 +74,7 @@ function RegionHero({ region, post, heroRef, canvasRef }) {
             </div>
             <div className="w-full md:pr-[max(0.75rem,calc((100vw-1260px)/2))]">
               <div
-                className="relative isolate aspect-video w-full overflow-hidden rounded-alt-xl bg-primary md:ml-auto md:max-w-[820px]"
+                className="relative isolate aspect-video w-full overflow-hidden rounded-xl bg-primary shadow-drop-shadow-lg md:ml-auto md:max-w-[820px] md:rounded-xxl"
               >
                 <img
                   src={post.thumbnail.url}
@@ -83,7 +83,7 @@ function RegionHero({ region, post, heroRef, canvasRef }) {
                 />
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute inset-0 rounded-alt-xl ring-1 ring-inset ring-primary/5"
+                  className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-primary md:rounded-xxl"
                 />
               </div>
             </div>

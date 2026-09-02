@@ -17,11 +17,10 @@ export default function Nav({ solid = false, overLight = false }) {
   // `overLight` keeps the bar transparent but uses dark (blue) logo + pills so
   // it stays legible over a LIGHT hero.
   const [scrolledPast, setScrolledPast] = useState(false)
-  // Pages with a light visual surface always need an opaque header so the
-  // fixed navigation never blends into the underlying content.
-  const scrolled = solid || overLight || scrolledPast
-  // Dark logo/pills whenever the bar is solid OR sitting over a light hero.
-  const darkContent = scrolled || overLight
+  // Only a forced page header or a scroll position gives the fixed nav a surface.
+  const hasSurface = solid || scrolledPast
+  // A light hero needs blue controls, but the header surface still waits for scroll.
+  const darkContent = hasSurface || overLight
 
   useEffect(() => {
     if (solid) return undefined
@@ -42,7 +41,7 @@ export default function Nav({ solid = false, overLight = false }) {
     return (
       <div
         className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-          scrolled ? 'bg-primary shadow-sm' : 'bg-transparent'
+          hasSurface ? 'bg-primary shadow-sm' : 'bg-transparent'
         }`}
       >
         <div className="mx-auto flex h-[56px] max-w-7xl items-center justify-between px-24">
@@ -73,7 +72,7 @@ export default function Nav({ solid = false, overLight = false }) {
   return (
     <div
       className={`fixed inset-x-0 top-0 z-50 flex w-full flex-col items-center transition-colors duration-300 ${
-        scrolled ? 'bg-primary shadow-sm' : 'bg-transparent'
+        hasSurface ? 'bg-primary shadow-sm' : 'bg-transparent'
       }`}
     >
       <div className="flex h-[72px] w-full items-center justify-center px-12">
